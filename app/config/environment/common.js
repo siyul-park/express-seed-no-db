@@ -12,10 +12,4 @@ module.exports = {
       level: 'debug',
     }],
   },
-
-  database: {
-    valueName: 'db',
-
-    url: null,
-  },
 };
