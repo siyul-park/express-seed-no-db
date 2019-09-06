@@ -16,11 +16,10 @@ function getEnvironmentValue(configName, names) {
 
 function concatElementUserEnvironmentValue(configName, path, current) {
   let valueName = '';
-  let currentPath = [];
+  let currentPath = [...path];
   for (const property in current) {
     if (property === VALUE_NAME) {
-      valueName = convertCamelToSnake(current[property]);
-      currentPath = path.concat([valueName]);
+      currentPath[currentPath.length - 1] = convertCamelToSnake(current[property])
 
       continue;
     }
@@ -28,7 +27,9 @@ function concatElementUserEnvironmentValue(configName, path, current) {
     const propertyName = convertCamelToSnake(property);
 
     if (current[property] && typeof current[property] === 'object') {
-      concatElementUserEnvironmentValue(configName, currentPath, current[property]);
+      valueName = convertCamelToSnake(property);
+
+      concatElementUserEnvironmentValue(configName, currentPath.concat([valueName]), current[property]);
       continue;
     }
 
